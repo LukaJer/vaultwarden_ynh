@@ -98,8 +98,6 @@ ynh_setup_source --dest_dir="$final_path/build/" --source_id="app"
 # Download, check integrity, uncompress and patch the source from web.src
 ynh_setup_source --dest_dir="$final_path/live/web-vault/" --source_id="web"
 
-mkdir -p "$final_path/.rustup"
-mkdir -p "$final_path/.cargo"
 
 chmod 750 "$final_path"
 chmod -R o-rwx "$final_path"
@@ -120,16 +118,16 @@ ynh_add_nginx_config
 #=================================================
 ynh_script_progression --message="Making install..."
 
-# Install rustup with the toolchain needed by vaultwarden
+cd "$final_path"
+wget https://raw.githubusercontent.com/jjlin/docker-image-extract/main/docker-image-extract
+chmod +x docker-image-extract
 
+./docker-image-extract vaultwarden/server:sha256:c2bfdf18494d73d836c9554e4ecd89f81897934378137fdfd757caddfe51f0e2
 
 # Install vaultwarden
-cp -af  /home/luka/output/vaultwarden "$final_path/live/vaultwarden"
+cp -af  "$final_path/output/vaultwarden" "$final_path/live/vaultwarden"
 
 # Remove build files and rustup
-ynh_secure_remove --file="$final_path/build"
-ynh_secure_remove --file="$final_path/.cargo"
-ynh_secure_remove --file="$final_path/.rustup"
 
 #=================================================
 # CREATE DATA DIRECTORY
@@ -219,7 +217,7 @@ ynh_systemd_action --service_name=nginx --action=reload
 #=================================================
 ynh_script_progression --message="Sending a readme for the admin..."
 
-ynh_send_readme_to_admin --app_message="../conf/msg_install" --recipients="$admin_mail" --type='install'
+#ynh_send_readme_to_admin --app_message="../conf/msg_install" --recipients="$admin_mail" --type='install'
 
 #=================================================
 # END OF SCRIPT
