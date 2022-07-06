@@ -126,7 +126,7 @@ chmod +x docker-image-extract
 
 # Install vaultwarden
 cp -af  "$final_path/output/vaultwarden" "$final_path/live/vaultwarden"
-chonw vaultwarden:vaultwarden "$final_path/live/vaultwarden"
+chown vaultwarden:vaultwarden "$final_path/live/vaultwarden"
 
 # Remove build files and rustup
 
