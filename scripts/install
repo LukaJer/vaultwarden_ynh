@@ -122,7 +122,7 @@ cd "$final_path"
 wget https://raw.githubusercontent.com/jjlin/docker-image-extract/main/docker-image-extract
 chmod +x docker-image-extract
 
-./docker-image-extract vaultwarden/server:sha256:c2bfdf18494d73d836c9554e4ecd89f81897934378137fdfd757caddfe51f0e2
+./docker-image-extract vaultwarden/server:sha256:2e8d8c382e9f87f660ab50bbcc76863e45e739b36ad40f504bd71bf0eb286b6c
 
 # Install vaultwarden
 cp -af  "$final_path/output/vaultwarden" "$final_path/live/vaultwarden"
